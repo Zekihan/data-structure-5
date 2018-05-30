@@ -7,12 +7,21 @@ public class Player {
 	private Position position;
 	
 	public Player(String name, int shirtNumber, Position position) {
-		
-		// TODO: Assign values to attributes.
-		
+		this.name = name;
+		this.shirtNumber = shirtNumber;
+		this.position = position;
+	
 	}
 
-	// TODO: Define getter methods only.
+	public String getName() {
+		return name;
+	}
+	public int getShirtName() {
+		return shirtNumber;
+	}
+	public Position getPosition() {
+		return position;
+	}
 	
 	@Override
 	public int hashCode() {
