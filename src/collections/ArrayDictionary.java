@@ -92,14 +92,28 @@ public class ArrayDictionary<K, V> implements Dictionary<K, V>
 
 	public Iterator<K> getKeyIterator() 
 	{
+		@SuppressWarnings("unchecked")
+		K[] keyArray = (K[])new Object[size];
+		for (int i = 0; i<size; i++)
+		{
+			keyArray[i] = dictionary[i].getKey();
+		}
 		
-		return null;
+		Iterator<K> keyIterator = Arrays.stream(keyArray).iterator();
+		return keyIterator;
 	}
 
 	public Iterator<V> getValueIterator() 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		@SuppressWarnings("unchecked")
+		V[] valueArray = (V[])new Object[size];
+		for (int i = 0; i<size; i++)
+		{
+			valueArray[i] = dictionary[i].getValue();
+		}
+		
+		Iterator<V> valueIterator = Arrays.stream(valueArray).iterator();
+		return valueIterator;
 	}
 
 	public boolean isEmpty() 
