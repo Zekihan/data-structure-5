@@ -1,18 +1,18 @@
 package collections;
 
-public class MinimumHeap<T extends Comparable<? super T>> implements MinHeap<T>
+public class ArrayMinHeap<T extends Comparable<? super T>> implements MinHeap<T>
 {
 	private T[] heap;
 	private int lastIndex;
 	private static final int DEFAULT_CAPACITY = 16;
 	
-	public MinimumHeap()
+	public ArrayMinHeap()
 	{
 		this(DEFAULT_CAPACITY);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public MinimumHeap(int initialCapacity)
+	public ArrayMinHeap(int initialCapacity)
 	{
 		heap = (T[]) new Object[initialCapacity + 1];
 		lastIndex = 0;
