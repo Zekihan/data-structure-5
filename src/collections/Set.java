@@ -2,7 +2,6 @@ package collections;
 
 public interface Set<T> {
 	
-	// TODO: Create a separate class and implement this interface there.
 
 	public void add(T element);
 	
