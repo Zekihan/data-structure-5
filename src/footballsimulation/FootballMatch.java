@@ -18,9 +18,43 @@ public class FootballMatch {
 	private Set<Player> awaySubstitutePlayers;
 	private int awayScore;
 	private Dictionary<Integer, Integer> awayAchievements;
-
-	// TODO: Define getters for all of the attributes above.
-	// Do not return mutable objects directly. Instead, create a copy.
+	
+	public FootballClub getHomeClub() {
+		return homeClub;
+	}
+	public FootballManager getHomeManager() {
+		return homeManager;
+	}
+	public Set<Player> getHomeStartingLineUp() {
+		return homeStartingLineUp;
+	}
+	public Set<Player> getHomeSubstitutePlayers() {
+		return homeSubstitutePlayers;
+	}
+	public int getHomeScore() {
+		return homeScore;
+	}
+	public Dictionary<Integer, Integer> getHomeAchievements() {
+		return homeAchievements;
+	}
+	public FootballClub getAwayClub() {
+		return awayClub;
+	}
+	public FootballManager getAwayManager() {
+		return awayManager;
+	}
+	public Set<Player> getAwayStartingLineUp() {
+		return awayStartingLineUp;
+	}
+	public Set<Player> getAwaySubstitutePlayers() {
+		return awaySubstitutePlayers;
+	}
+	public int getAwayScore() {
+		return awayScore;
+	}
+	public Dictionary<Integer, Integer> getAwayAchievements() {
+		return awayAchievements;
+	}
 	
 	public FootballMatch(FootballClub homeClub, FootballClub awayClub) {
 
@@ -29,11 +63,23 @@ public class FootballMatch {
 		// Key-value pairs of the dictionaries should consist of 
 		// shirt numbers and the corresponding personal scores.
 		// All players should start with 0 points as achievements.
+		this.homeClub = homeClub;
+		this.homeManager = homeClub.getFootballManager;
+		this.homeScore = 0;
+		this.homeAchievements = homeAchievements;
+		this.awayClub = awayClub;
+		this.awayManager = awayClub.getFootballManager;
+		this.awayScore = 0;
+		this.awayAchievements = awayAchievements;
 	}
 
 	public MatchResult simulateMatch() {
 		
 		homeStartingLineUp = homeManager.decideStartingLineUp(homeClub, awayClub);
+		homeSubstitutePlayers = homeManager.decideSubstitutePlayers(homeClub, awayClub, homeStartingLineUp);
+		
+		awayStartingLineUp = homeManager.decideStartingLineUp(awayClub, homeClub);
+		awaySubstitutePlayers = homeManager.decideSubstitutePlayers(awayClub, homeClub, awayStartingLineUp);
 		// TODO: Assign values to awayStartingLineUp, homeSubstitutePlayers and awaySubstitutePlayers similarly.
 		// Write those 3 lines of code very carefully!!
 		
@@ -55,6 +101,7 @@ public class FootballMatch {
 			//    ... // This line of code will run with probability 0.3
 			// }
 			
+			
 		}
 		
 		// Half time simulation
@@ -73,6 +120,26 @@ public class FootballMatch {
 		
 		// TODO: Create and return the appropriate MatchResult object.	
 		return null; // Remove this line.
+	}
+	private int randomEvent() {
+		if ((22*Math.random())+1< 10) {
+			
+		}
+		if (Math.random() < 0.06) {
+			
+		}
+		if (Math.random() < 0.06) {
+			
+		}
+		if (Math.random() < 0.15) {
+			
+		}
+		if (Math.random() < 0.5) {
+			
+		}
+		
+		return 0;
+		
 	}
 	
 	// Note: It is strongly recommended to define private helper methods.
