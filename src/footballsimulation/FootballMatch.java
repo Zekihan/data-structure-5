@@ -1,6 +1,5 @@
 package footballsimulation;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 import collections.ArrayDictionary;

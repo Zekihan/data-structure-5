@@ -23,23 +23,7 @@ public class Player {
 		return position;
 	}
 		
-		this.name = name;
-		this.shirtNumber = shirtNumber;
-		this.position = position;
-		// TODO: Assign values to attributes.
-		
-	}
 
-	public String getName()
-	{
-		return name;
-	}
-	
-	
-	public Position getPosition()
-	{
-		return position;
-	}
 	// TODO: Define getter methods only.
 	
 	@Override
