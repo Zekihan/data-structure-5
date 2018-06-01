@@ -19,11 +19,21 @@ public class ArrayDictionary<K, V> implements Dictionary<K, V>
 	public ArrayDictionary(int initialCapacity) 
 	{
 		@SuppressWarnings("unchecked")
-		Entry<K, V>[] tempDictionary = (Entry<K, V>[])new Entry[initialCapacity];
+		Entry<K, V>[] tempDictionary = (Entry<K, V>[])new Object[initialCapacity];
 	    dictionary = tempDictionary;
 	    size = 0;
 	    initialized = true;
 	}
+	
+	//copy constructor
+	public ArrayDictionary(ArrayDictionary<K,V> another)
+	{
+		this.dictionary = another.dictionary;
+		this.size = another.size;
+		this.initialized = true;
+	}
+	
+	
 
 	public V add(K key, V value) 
 	{

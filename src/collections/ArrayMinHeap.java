@@ -18,6 +18,14 @@ public class ArrayMinHeap<T extends Comparable<? super T>> implements MinHeap<T>
 		lastIndex = 0;
 	}
 	
+	//copy constructor
+	public ArrayMinHeap(ArrayMinHeap<T> another)
+	{
+		this.heap = another.heap;
+		this.lastIndex = another.lastIndex;
+	}
+	
+	
 	public void add(T newEntry)
 	{
 		if (lastIndex >= heap.length) 

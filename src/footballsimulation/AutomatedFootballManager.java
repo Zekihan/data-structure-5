@@ -1,5 +1,6 @@
 package footballsimulation;
 
+import collections.ArraySet;
 import collections.Set;
 
 public class AutomatedFootballManager implements FootballManager {
@@ -7,6 +8,13 @@ public class AutomatedFootballManager implements FootballManager {
 	//Warning: In this class, do not use console for input/output.
 
 	public Set<Player> decideStartingLineUp(FootballClub ownClub, FootballClub opponent) {
+		Player[] squadArray = ownClub.getSquad().toArray();
+		Player[] startingArray = new Player[11];
+		
+		for(Player player : squadArray)
+		{
+			player
+		}
 		// TODO: Fix this method.
 		// This method should select an appropriate line up for the match.
 		// This is a simple automated football manager and thus it ignores the opponent.
