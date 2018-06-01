@@ -15,11 +15,10 @@ public class FootballClub {
 	@SuppressWarnings("unchecked")
 	public FootballClub(FootballManager footballManager, String clubName, Set<Player> squad) {
 		
-		footballManager = footballManager;
-		clubName = clubName;
-		squad = new ArraySet<Player>((ArraySet<Player>) squad);
-		
-		
+		this.footballManager = footballManager;
+		this.clubName = clubName;
+		this.squad = new ArraySet<Player>((ArraySet<Player>) squad);
+
 		// TODO: Assign values to attributes.
 		// Note that squad is a mutable object.
 		// Do not assign the squad directly to the attribute.
@@ -30,7 +29,6 @@ public class FootballClub {
 		// and at least 18 players (11 for starting line up and 7 for substitutes),
 		// All the players should have a shirt number between 1 and 99.
 		// These numbers should be unique.
-		
 	}
 	
 	public FootballManager getManager()

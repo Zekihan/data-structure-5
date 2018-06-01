@@ -19,7 +19,7 @@ public class ArrayDictionary<K, V> implements Dictionary<K, V>
 	public ArrayDictionary(int initialCapacity) 
 	{
 		@SuppressWarnings("unchecked")
-		Entry<K, V>[] tempDictionary = (Entry<K, V>[])new Entry[initialCapacity];
+		Entry<K, V>[] tempDictionary = (Entry<K, V>[])new Object[initialCapacity];
 	    dictionary = tempDictionary;
 	    size = 0;
 	    initialized = true;

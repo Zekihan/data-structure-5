@@ -8,10 +8,27 @@ public class Player {
 	
 	public Player(String name, int shirtNumber, Position position) {
 		
+		this.name = name;
+		this.shirtNumber = shirtNumber;
+		this.position = position;
 		// TODO: Assign values to attributes.
 		
 	}
 
+	public String getName()
+	{
+		return name;
+	}
+	
+	public int getShirtNum()
+	{
+		return shirtNumber;
+	}
+	
+	public Position getPosition()
+	{
+		return position;
+	}
 	// TODO: Define getter methods only.
 	
 	@Override
