@@ -24,6 +24,16 @@ public class ArrayDictionary<K, V> implements Dictionary<K, V>
 	    size = 0;
 	    initialized = true;
 	}
+	
+	//copy constructor
+	public ArrayDictionary(ArrayDictionary<K,V> another)
+	{
+		this.dictionary = another.dictionary;
+		this.size = another.size;
+		this.initialized = true;
+	}
+	
+	
 
 	public V add(K key, V value) 
 	{

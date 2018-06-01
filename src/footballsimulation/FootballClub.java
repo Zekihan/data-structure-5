@@ -1,6 +1,8 @@
 package footballsimulation;
 
+import collections.ArraySet;
 import collections.Set;
+
 
 public class FootballClub {
 
@@ -10,7 +12,13 @@ public class FootballClub {
 	
 	private Set<Player> squad;
 	
+	@SuppressWarnings("unchecked")
 	public FootballClub(FootballManager footballManager, String clubName, Set<Player> squad) {
+		
+		footballManager = footballManager;
+		clubName = clubName;
+		squad = new ArraySet<Player>((ArraySet<Player>) squad);
+		
 		
 		// TODO: Assign values to attributes.
 		// Note that squad is a mutable object.
@@ -25,6 +33,19 @@ public class FootballClub {
 		
 	}
 	
+	public FootballManager getManager()
+	{
+		return footballManager;
+	}
+	public String getClubName()
+	{
+		return clubName;
+	}
+	public Set<Player> getSquad()
+	{
+		Set<Player> squadCopy = new ArraySet<Player>((ArraySet<Player>) squad);
+		return squadCopy;
+	}
 	// TODO: Define getter methods only.
 	// Do not return the squad directly.
 	// Instead, return a copy.

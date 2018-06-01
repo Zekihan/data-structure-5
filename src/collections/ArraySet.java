@@ -1,4 +1,5 @@
 package collections;
+
 import java.util.Arrays;
 
 public class ArraySet<T> implements Set<T>{
@@ -10,6 +11,13 @@ public class ArraySet<T> implements Set<T>{
 	public ArraySet() {
 		set = (T[]) new Object[1];;
 		size = 0;
+	}
+	
+	//copy constructor
+	public ArraySet(ArraySet<T> another)
+	{
+		this.set = another.set;
+		this.size = another.size;
 	}
 
 	public void add(T element) {
@@ -70,6 +78,9 @@ public class ArraySet<T> implements Set<T>{
 	        set = Arrays.copyOf(set, set.length*2);
 		}
 	}
+	
+
+	
 
 }
 
