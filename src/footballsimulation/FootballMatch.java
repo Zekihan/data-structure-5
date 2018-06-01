@@ -1,5 +1,8 @@
 package footballsimulation;
 
+import java.util.Arrays;
+import java.util.Iterator;
+
 import collections.ArrayDictionary;
 import collections.Dictionary;
 import collections.Set;
@@ -130,10 +133,38 @@ public class FootballMatch {
 		// We are keeping it simple: no extra time, no substitutions during the match, no injuries, etc. 
 		
 		// TODO: Create and return the appropriate MatchResult object.
-		homeAchievements.getValueIterator();
+		Integer[] home = findMax(homeAchievements);
+		Integer[] away = findMax(awayAchievements);
+		
 		Player playerOfTheMatch ;
+		
+		Integer maxKey = home[0];
+		if (home[1] < away[1]) {
+			maxKey = away[1];
+			playerOfTheMatch = getPlayer(homeClub.getSquad(), maxKey);
+		}
+		else {
+			playerOfTheMatch = getPlayer(awayClub.getSquad(), maxKey);
+		}
+		
 		MatchResult result = new MatchResult(homeScore, awayScore, playerOfTheMatch);
-		return null; // Remove this line.
+		return result; // Remove this line.
+	}
+	private Integer[] findMax(Dictionary<Integer, Integer> achievement) {
+		Iterator<Integer> achievementValue = achievement.getValueIterator();
+		Integer achievementMaxValue = 0, achievementKeyMax = 0, tempAchievementKey = 0, tempAchievementValue = 0;
+		while (achievementValue.hasNext()) {
+			tempAchievementValue = achievement.getValueIterator().next();
+			tempAchievementKey = achievement.getKeyIterator().next();
+			if (tempAchievementValue > achievementMaxValue) {
+				achievementMaxValue = tempAchievementValue;
+				achievementKeyMax = tempAchievementKey;
+			}
+		}
+		Integer result[] = new Integer[2];
+		result[0] = achievementKeyMax;
+		result[1] = achievementMaxValue;
+		return result;
 	}
 	private void randomEvent(Set<Player>homeTeam, Set<Player>awayTeam) {
 		double rand = Math.random();
@@ -220,7 +251,16 @@ public class FootballMatch {
 			Player player = arrayTeam[rand];
 		return player;
 	}
-
+	private Player getPlayer(Set<Player> team,Integer key) {
+		Player[] arrayTeam = team.toArray();
+		Player player = null;
+		for (int i = 0; i < arrayTeam.length; i++) {
+			if (arrayTeam[i].hashCode() == key) {
+				player = arrayTeam[i];
+			}
+		}
+		return player;
+	}
 	private boolean randomGoal(Player player) {
 		boolean goal = false;
 		int rand = (int) Math.random();
