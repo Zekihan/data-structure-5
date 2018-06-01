@@ -20,10 +20,6 @@ public class Player {
 		return name;
 	}
 	
-	public int getShirtNum()
-	{
-		return shirtNumber;
-	}
 	
 	public Position getPosition()
 	{
