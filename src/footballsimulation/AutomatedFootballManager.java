@@ -1,19 +1,94 @@
 package footballsimulation;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import collections.ArraySet;
 import collections.Set;
 
 public class AutomatedFootballManager implements FootballManager {
-
 	//Warning: In this class, do not use console for input/output.
 
 	public Set<Player> decideStartingLineUp(FootballClub ownClub, FootballClub opponent) {
-		Player[] squadArray = ownClub.getSquad().toArray();
-		Player[] startingArray = new Player[11];
 		
+		Player[] squadArray = ownClub.getSquad().toArray();
+		ArrayList<Player> startingSquad = new ArrayList<Player>();
+		
+		int GkCount = 0; int DlCount = 0; int DcCount = 0; int DrCount = 0; int MlCount = 0; int McCount = 0; int MrCount = 0; int FcCount = 0;
 		for(Player player : squadArray)
 		{
-			player
+			if(GkCount != 1)
+			{
+				if (player.getPosition() == Position.GK)
+				{
+					startingSquad.add(player);
+					GkCount++;
+					continue;
+				}
+			}
+			if(DlCount != 1)
+			{
+				if (player.getPosition() == Position.DL)
+				{
+					startingSquad.add(player);
+					DlCount++;
+					continue;
+				}
+			}
+			if(DcCount != 2)
+			{
+				if (player.getPosition() == Position.DC)
+				{
+					startingSquad.add(player);
+					DcCount++;
+					continue;
+				}
+			}
+			if(DrCount != 1)
+			{
+				if (player.getPosition() == Position.DR)
+				{
+					startingSquad.add(player);
+					DrCount++;
+					continue;
+				}
+			}
+			if(MlCount != 1)
+			{
+				if (player.getPosition() == Position.ML)
+				{
+					startingSquad.add(player);
+					MlCount++;
+					continue;
+				}
+			}
+			if(McCount != 2)
+			{
+				if (player.getPosition() == Position.MC)
+				{
+					startingSquad.add(player);
+					McCount++;
+					continue;
+				}
+			}
+			if(MrCount != 1)
+			{
+				if (player.getPosition() == Position.MR)
+				{
+					startingSquad.add(player);
+					MrCount++;
+					continue;
+				}
+			}
+			if(FcCount != 1)
+			{
+				if (player.getPosition() == Position.FC)
+				{
+					startingSquad.add(player);
+					FcCount++;
+					continue;
+				}
+			}
 		}
 		// TODO: Fix this method.
 		// This method should select an appropriate line up for the match.
