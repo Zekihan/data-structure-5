@@ -1,5 +1,6 @@
 package footballsimulation;
 
+import collections.ArrayDictionary;
 import collections.Dictionary;
 import collections.Set;
 
@@ -64,13 +65,22 @@ public class FootballMatch {
 		// shirt numbers and the corresponding personal scores.
 		// All players should start with 0 points as achievements.
 		this.homeClub = homeClub;
-		this.homeManager = homeClub.getFootballManager;
+		this.homeManager = homeClub.getManager();
 		this.homeScore = 0;
-		this.homeAchievements = homeAchievements;
+		Player[] team = homeClub.getSquad().toArray();
+		Dictionary<Integer, Integer> tempHome = new ArrayDictionary<Integer, Integer>();
+		for (int i = 0; i < team.length; i++) {
+			tempHome.add(team[i].getShirtName(),0);
+		}
+		this.homeAchievements = tempHome;
 		this.awayClub = awayClub;
-		this.awayManager = awayClub.getFootballManager;
+		this.awayManager = awayClub.getManager();
 		this.awayScore = 0;
-		this.awayAchievements = awayAchievements;
+		Dictionary<Integer, Integer> tempAway = new ArrayDictionary<Integer, Integer>();
+		for (int i = 0; i < team.length; i++) {
+			tempAway.add(team[i].getShirtName(),0);
+		}
+		this.awayAchievements = tempAway;
 	}
 
 	public MatchResult simulateMatch() {
@@ -100,7 +110,7 @@ public class FootballMatch {
 			// if(Math.random() < 0.3) {
 			//    ... // This line of code will run with probability 0.3
 			// }
-			
+			randomEvent(homeStartingLineUp, awayStartingLineUp);
 			
 		}
 		
@@ -114,34 +124,286 @@ public class FootballMatch {
 			// TODO: Simulate the second half.
 			// For the new players, you may want to add extra success (because they will have more energy).
 			// It is smart to implement a private method and call it both in the first half and in the second half.
+			randomEvent(secondHalfLineUpHome, secondHalfLineUpAway);
 		}
 		
 		// We are keeping it simple: no extra time, no substitutions during the match, no injuries, etc. 
 		
-		// TODO: Create and return the appropriate MatchResult object.	
+		// TODO: Create and return the appropriate MatchResult object.
+		homeAchievements.getValueIterator();
+		Player playerOfTheMatch ;
+		MatchResult result = new MatchResult(homeScore, awayScore, playerOfTheMatch);
 		return null; // Remove this line.
 	}
-	private int randomEvent() {
-		if ((22*Math.random())+1< 10) {
+	private void randomEvent(Set<Player>homeTeam, Set<Player>awayTeam) {
+		double rand = Math.random();
+		if (rand <= 0.5) {
 			
+			Player player = randomPlayer(homeTeam);
+			if (Math.random() < 0.06) {
+				if (randomGoal(player)) {
+					homeScore++;
+					Integer tempvalue = homeAchievements.remove(player.getShirtName()) ;
+					tempvalue += 20;
+					homeAchievements.add(player.getShirtName(), tempvalue);	
+				}
+				
+			}
+			//assist
+			if (Math.random() < 0.06) {
+				if (randomAssist(player)) {
+					Integer tempvalue = homeAchievements.remove(player.getShirtName()) ;
+					tempvalue += 10;
+					homeAchievements.add(player.getShirtName(), tempvalue);	
+				}
+			}
+			//tackle
+			if (Math.random() < 0.15) {
+				if (randomTackle(player)) {
+					Integer tempvalue = homeAchievements.remove(player.getShirtName()) ;
+					tempvalue += 2;
+					homeAchievements.add(player.getShirtName(), tempvalue);	
+				}
+			}
+			//pass
+			if (Math.random() < 0.5) {
+				if (randomPass(player)) {
+					Integer tempvalue = homeAchievements.remove(player.getShirtName()) ;
+					tempvalue += 1;
+					homeAchievements.add(player.getShirtName(), tempvalue);	
+				}
+			}
 		}
-		if (Math.random() < 0.06) {
+		//away
+		if (rand > 0.5) {
 			
+			Player player = randomPlayer(awayTeam);
+			if (Math.random() < 0.06) {
+				if (randomGoal(player)) {
+					awayScore++;
+					Integer tempvalue = awayAchievements.remove(player.getShirtName()) ;
+					tempvalue += 20;
+					awayAchievements.add(player.getShirtName(), tempvalue);	
+				}
+				
+			}
+			//assist
+			if (Math.random() < 0.06) {
+				if (randomAssist(player)) {
+					Integer tempvalue = awayAchievements.remove(player.getShirtName()) ;
+					tempvalue += 10;
+					awayAchievements.add(player.getShirtName(), tempvalue);	
+				}
+			}
+			//tackle
+			if (Math.random() < 0.15) {
+				if (randomTackle(player)) {
+					Integer tempvalue = awayAchievements.remove(player.getShirtName()) ;
+					tempvalue += 2;
+					awayAchievements.add(player.getShirtName(), tempvalue);	
+				}
+			}
+			//pass
+			if (Math.random() < 0.5) {
+				if (randomPass(player)) {
+					Integer tempvalue = awayAchievements.remove(player.getShirtName()) ;
+					tempvalue += 1;
+					awayAchievements.add(player.getShirtName(), tempvalue);	
+				}
+			}
 		}
-		if (Math.random() < 0.06) {
-			
-		}
-		if (Math.random() < 0.15) {
-			
-		}
-		if (Math.random() < 0.5) {
-			
-		}
-		
-		return 0;
 		
 	}
+	private Player randomPlayer(Set<Player> team) {
+			int rand = (int) ((Math.random()*11)+1);
+			Player[] arrayTeam = team.toArray();
+			Player player = arrayTeam[rand];
+		return player;
+	}
+
+	private boolean randomGoal(Player player) {
+		boolean goal = false;
+		int rand = (int) Math.random();
+		if (player.getPosition() == Position.GK) {
+			if (rand <= 0.0005) {
+				goal = true;
+			}
+		}
+		if (player.getPosition() == Position.DL) {
+			if (rand <= 0.004) {
+				goal = true;
+			}
+		}
+		if (player.getPosition() == Position.DC) {
+			if (rand <= 0.005) {
+				goal = true;
+			}
+		}
+		if (player.getPosition() == Position.DR) {
+			if (rand <= 0.004) {
+				goal = true;
+			}
+		}
+		if (player.getPosition() == Position.MC) {
+			if (rand <= 0.06) {
+				goal = true;
+			}
+		}
+		if (player.getPosition() == Position.ML) {
+			if (rand <= 0.05) {
+				goal = true;
+			}
+		}
+		if (player.getPosition() == Position.MR) {
+			if (rand <= 0.06) {
+				goal = true;
+			}
+		}
+		if (player.getPosition() == Position.FC) {
+			if (rand <= 0.5) {
+				goal = true;
+			}
+		}
+		return goal;
+	}
+	private boolean randomAssist(Player player) {
+		boolean assist = false;
+		int rand = (int) Math.random();
+		if (player.getPosition() == Position.GK) {
+			if (rand <= 0.005) {
+				assist = true;
+			}
+		}
+		if (player.getPosition() == Position.DL) {
+			if (rand <= 0.05) {
+				assist = true;
+			}
+		}
+		if (player.getPosition() == Position.DC) {
+			if (rand <= 0.05) {
+				assist = true;
+			}
+		}
+		if (player.getPosition() == Position.DR) {
+			if (rand <= 0.05) {
+				assist = true;
+			}
+		}
+		if (player.getPosition() == Position.MC) {
+			if (rand <= 0.5) {
+				assist = true;
+			}
+		}
+		if (player.getPosition() == Position.ML) {
+			if (rand <= 0.5) {
+				assist = true;
+			}
+		}
+		if (player.getPosition() == Position.MR) {
+			if (rand <= 0.5) {
+				assist = true;
+			}
+		}
+		if (player.getPosition() == Position.FC) {
+			if (rand <= 0.5) {
+				assist = true;
+			}
+		}
+		return assist;
+	}
+	private boolean randomTackle(Player player) {
+		boolean tackle = false;
+		int rand = (int) Math.random();
+		if (player.getPosition() == Position.GK) {
+			if (rand <= 0.005) {
+				tackle = true;
+			}
+		}
+		if (player.getPosition() == Position.DL) {
+			if (rand <= 0.5) {
+				tackle = true;
+			}
+		}
+		if (player.getPosition() == Position.DC) {
+			if (rand <= 0.5) {
+				tackle = true;
+			}
+		}
+		if (player.getPosition() == Position.DR) {
+			if (rand <= 0.5) {
+				tackle = true;
+			}
+		}
+		if (player.getPosition() == Position.MC) {
+			if (rand <= 0.5) {
+				tackle = true;
+			}
+		}
+		if (player.getPosition() == Position.ML) {
+			if (rand <= 0.5) {
+				tackle = true;
+			}
+		}
+		if (player.getPosition() == Position.MR) {
+			if (rand <= 0.5) {
+				tackle = true;
+			}
+		}
+		if (player.getPosition() == Position.FC) {
+			if (rand <= 0.5) {
+				tackle = true;
+			}
+		}
+		return tackle;
+	}
+	private boolean randomPass(Player player) {
+		boolean pass = false;
+		int rand = (int) Math.random();
+		if (player.getPosition() == Position.GK) {
+			if (rand <= 0.005) {
+				pass = true;
+			}
+		}
+		if (player.getPosition() == Position.DL) {
+			if (rand <= 0.5) {
+				pass = true;
+			}
+		}
+		if (player.getPosition() == Position.DC) {
+			if (rand <= 0.5) {
+				pass = true;
+			}
+		}
+		if (player.getPosition() == Position.DR) {
+			if (rand <= 0.5) {
+				pass = true;
+			}
+		}
+		if (player.getPosition() == Position.MC) {
+			if (rand <= 0.5) {
+				pass = true;
+			}
+		}
+		if (player.getPosition() == Position.ML) {
+			if (rand <= 0.5) {
+				pass = true;
+			}
+		}
+		if (player.getPosition() == Position.MR) {
+			if (rand <= 0.5) {
+				pass = true;
+			}
+		}
+		if (player.getPosition() == Position.FC) {
+			if (rand <= 0.5) {
+				pass = true;
+			}
+		}
+		return pass;
+	}
 	
+				
+			
 	// Note: It is strongly recommended to define private helper methods.
 
 }
