@@ -140,7 +140,7 @@ public class FootballMatch {
 	private boolean checkStartingTeam(Set<Player> startingTeam) {
 		boolean rule = false;
 		Player[] team = startingTeam.toArray();
-		if (team.length != 12) {
+		if (team.length != 11) {
 			rule = true;
 		}
 		int gk = 0, dl = 0, dc = 0, dr = 0, ml = 0, mc = 0, mr = 0, fc = 0;
@@ -179,7 +179,7 @@ public class FootballMatch {
 	private boolean checkSubstituteTeam(Set<Player> startingTeam) {
 		boolean rule = false;
 		Player[] team = startingTeam.toArray();
-		if (team.length != 12) {
+		if (team.length != 7) {
 			rule = true;
 		}
 		return rule;
