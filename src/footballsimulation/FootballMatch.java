@@ -90,64 +90,126 @@ public class FootballMatch {
 		homeStartingLineUp = homeManager.decideStartingLineUp(homeClub, awayClub);
 		homeSubstitutePlayers = homeManager.decideSubstitutePlayers(homeClub, awayClub, homeStartingLineUp);
 		
-		awayStartingLineUp = homeManager.decideStartingLineUp(awayClub, homeClub);
-		awaySubstitutePlayers = homeManager.decideSubstitutePlayers(awayClub, homeClub, awayStartingLineUp);
+		awayStartingLineUp = awayManager.decideStartingLineUp(awayClub, homeClub);
+		awaySubstitutePlayers = awayManager.decideSubstitutePlayers(awayClub, homeClub, awayStartingLineUp);
 		// TODO: Assign values to awayStartingLineUp, homeSubstitutePlayers and awaySubstitutePlayers similarly.
 		// Write those 3 lines of code very carefully!!
-		
+		boolean violates = false;
+		MatchResult result;
+		if (checkStartingTeam(homeStartingLineUp)||checkSubstituteTeam(homeSubstitutePlayers)) {
+			awayScore = 3;
+			violates = true;
+		}
+		if (checkStartingTeam(awayStartingLineUp)||checkSubstituteTeam(awaySubstitutePlayers)) {
+			homeScore = 3;
+			violates = true;
+		}
+		if ((homeScore == 3)&&(awayScore == 3)) {
+			homeScore = 0;
+			awayScore = 0;
+		}
+		result = new MatchResult(homeScore, awayScore, null);
 		// TODO: Check for those 4 attributes. 
 		// If a manager violates a rule, the other club will be the 
 		// "winner by default" with a score of 3 against 0.
 		// If both managers violates a rule, it is a draw (The score is 0-0).
-		
-		for(int minute = 0; minute < 45; minute++) {
+		if (!violates) {
+			for(int minute = 0; minute < 45; minute++) {
+				
+				// TODO: Simulate random scores, assists, etc. for the first half of the match.
+				// Achievements: 
+				// + Scoring a goal: 20 points
+				// + Assist: 10 points
+				// + Tackling opponent: 3 points
+				// + placed pass: 1 point
+				// A random event can be simulated with the following snippet of code:
+				// if(Math.random() < 0.3) {
+				//    ... // This line of code will run with probability 0.3
+				// }
+				randomEvent(homeStartingLineUp, awayStartingLineUp);
+				
+			}
 			
-			// TODO: Simulate random scores, assists, etc. for the first half of the match.
-			// Achievements: 
-			// + Scoring a goal: 20 points
-			// + Assist: 10 points
-			// + Tackling opponent: 3 points
-			// + placed pass: 1 point
-			// A random event can be simulated with the following snippet of code:
-			// if(Math.random() < 0.3) {
-			//    ... // This line of code will run with probability 0.3
-			// }
-			randomEvent(homeStartingLineUp, awayStartingLineUp);
+			// Half time simulation
+			Set<Player> secondHalfLineUpHome = homeManager.makeSubstitutions(homeClub, this);
+			Set<Player> secondHalfLineUpAway = awayManager.makeSubstitutions(awayClub, this);
+			// TODO: Check for the rule violations. In case of any violation, apply the same penalties as above.
 			
+			// Second half
+			for(int minutes = 45; minutes < 90; minutes++) {
+				// TODO: Simulate the second half.
+				// For the new players, you may want to add extra success (because they will have more energy).
+				// It is smart to implement a private method and call it both in the first half and in the second half.
+				randomEvent(secondHalfLineUpHome, secondHalfLineUpAway);
+			}
+			
+			// We are keeping it simple: no extra time, no substitutions during the match, no injuries, etc. 
+			
+			// TODO: Create and return the appropriate MatchResult object.
+			Integer[] home = findMax(homeAchievements);
+			Integer[] away = findMax(awayAchievements);
+			
+			Player playerOfTheMatch ;
+			
+			Integer maxKey = home[0];
+			if (home[1] < away[1]) {
+				maxKey = away[1];
+				playerOfTheMatch = getPlayer(homeClub.getSquad(), maxKey);
+			}
+			else {
+				playerOfTheMatch = getPlayer(awayClub.getSquad(), maxKey);
+			}
+			
+			result = new MatchResult(homeScore, awayScore, playerOfTheMatch);
 		}
-		
-		// Half time simulation
-		Set<Player> secondHalfLineUpHome = homeManager.makeSubstitutions(homeClub, this);
-		Set<Player> secondHalfLineUpAway = awayManager.makeSubstitutions(awayClub, this);
-		// TODO: Check for the rule violations. In case of any violation, apply the same penalties as above.
-		
-		// Second half
-		for(int minutes = 45; minutes < 90; minutes++) {
-			// TODO: Simulate the second half.
-			// For the new players, you may want to add extra success (because they will have more energy).
-			// It is smart to implement a private method and call it both in the first half and in the second half.
-			randomEvent(secondHalfLineUpHome, secondHalfLineUpAway);
-		}
-		
-		// We are keeping it simple: no extra time, no substitutions during the match, no injuries, etc. 
-		
-		// TODO: Create and return the appropriate MatchResult object.
-		Integer[] home = findMax(homeAchievements);
-		Integer[] away = findMax(awayAchievements);
-		
-		Player playerOfTheMatch ;
-		
-		Integer maxKey = home[0];
-		if (home[1] < away[1]) {
-			maxKey = away[1];
-			playerOfTheMatch = getPlayer(homeClub.getSquad(), maxKey);
-		}
-		else {
-			playerOfTheMatch = getPlayer(awayClub.getSquad(), maxKey);
-		}
-		
-		MatchResult result = new MatchResult(homeScore, awayScore, playerOfTheMatch);
 		return result; // Remove this line.
+	}
+	private boolean checkStartingTeam(Set<Player> startingTeam) {
+		boolean rule = false;
+		Player[] team = startingTeam.toArray();
+		if (team.length != 12) {
+			rule = true;
+		}
+		int gk = 0, dl = 0, dc = 0, dr = 0, ml = 0, mc = 0, mr = 0, fc = 0;
+		for (int i = 0; i < team.length; i++) {
+			Player player = team[i];
+			if (player.getPosition() == Position.GK) {
+				gk += 1;
+			}
+			if (player.getPosition() == Position.DL) {
+				dl += 1;
+			}
+			if (player.getPosition() == Position.DC) {
+				dc += 1;
+			}
+			if (player.getPosition() == Position.DR) {
+				dr += 1;
+			}
+			if (player.getPosition() == Position.MC) {
+				mc += 1;
+			}
+			if (player.getPosition() == Position.ML) {
+				ml += 1;
+			}
+			if (player.getPosition() == Position.MR) {
+				mr += 1;
+			}
+			if (player.getPosition() == Position.FC) {
+				fc += 1;
+			}
+		}
+		if ((gk != 1)&&(dl != 1)&&(dc != 2)&&(dr != 1)&&(mc != 2)&&(ml != 1)&&(mr != 1)&&(fc != 2)) {
+			rule = true;
+		}
+		return rule;
+	}
+	private boolean checkSubstituteTeam(Set<Player> startingTeam) {
+		boolean rule = false;
+		Player[] team = startingTeam.toArray();
+		if (team.length != 12) {
+			rule = true;
+		}
+		return rule;
 	}
 	private Integer[] findMax(Dictionary<Integer, Integer> achievement) {
 		Iterator<Integer> achievementValue = achievement.getValueIterator();

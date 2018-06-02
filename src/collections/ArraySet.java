@@ -7,10 +7,11 @@ public class ArraySet<T> implements Set<T>{
 	private T set[];
 	private int size = 0;
 	
+	
 	@SuppressWarnings("unchecked")
 	public ArraySet() {
-		set = (T[]) new Object[1];;
-		size = 0;
+		this.set = (T[]) new Object[1];;
+		this.size = 0;
 	}
 	
 	//copy constructor
@@ -74,9 +75,7 @@ public class ArraySet<T> implements Set<T>{
 		
 	}
 	private void ensureCapacity() {
-		if (size > set.length-5) {
-	        set = Arrays.copyOf(set, set.length*2);
-		}
+	        set = Arrays.copyOf(set, set.length+1);
 	}
 	
 
