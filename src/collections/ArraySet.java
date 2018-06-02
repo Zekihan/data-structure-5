@@ -1,5 +1,7 @@
 package collections;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ArraySet<T> implements Set<T>{
@@ -66,8 +68,18 @@ public class ArraySet<T> implements Set<T>{
 		return empty;
 	}
 
+	@SuppressWarnings("unchecked")
 	public T[] toArray() {
-		return set;
+		T element;
+		
+		T[] newArray = (T[]) Array.newInstance(getType(), size);
+		ArrayList<T> elements = new ArrayList<T>();
+		for (int i =0;i<size;i++) {
+			element = set[i];
+			elements.add(element);
+		}
+		newArray = elements.toArray(newArray);
+		return newArray;
 	}
 	private int getIndex(T element) {
 		int index = -1,i;
@@ -78,6 +90,14 @@ public class ArraySet<T> implements Set<T>{
 		}
 		return index;
 		
+	}
+
+	private Class<?> getType() {
+		Class<?> type=null;
+		if (size != 0){
+			type = set[0].getClass();
+		}
+		return type;
 	}
 	private void ensureCapacity() {
 	        set = Arrays.copyOf(set, set.length+1);
