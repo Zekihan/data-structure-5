@@ -1,8 +1,14 @@
 package footballsimulation;
 
 
+import java.util.Iterator;
+
+import collections.ArrayMinHeap;
 import collections.ArraySet;
+import collections.Dictionary;
+import collections.MinHeap;
 import collections.Set;
+import utils.ComparablePair;
 
 public class AutomatedFootballManager implements FootballManager {
 	//Warning: In this class, do not use console for input/output.
@@ -118,13 +124,16 @@ public class AutomatedFootballManager implements FootballManager {
 	}
 
 	public Set<Player> makeSubstitutions(FootballClub ownClub, FootballMatch footballMatch) {
-		
+
 		if (ownClub.equals(footballMatch.getHomeClub()))
 		{
-			
+			return makeSubstitutions(footballMatch.getHomeAchievements(),footballMatch.getHomeStartingLineUp(),footballMatch.getHomeSubstitutePlayers());
 		}
-		
-		
+		else 
+		{
+			return makeSubstitutions(footballMatch.getAwayAchievements(),footballMatch.getAwayStartingLineUp(),footballMatch.getAwaySubstitutePlayers());
+		}
+
 		
 		// TODO: Fix this method.
 		// This method should return a new line up for the second half of the match.
@@ -169,8 +178,53 @@ public class AutomatedFootballManager implements FootballManager {
 		// It is crucial to NOT sort the players according to their achievements. 
 		// Instead, create a local min heap here and use it.
 		// That is more efficient!
-		return null; // Remove this line.
+
+	}
+	private Set<Player> makeSubstitutions(Dictionary<Integer,Integer> achievements, Set<Player> oldLineup, Set<Player> substitutePlayers)
+	{
+		Iterator<Integer> KeyIt = achievements.getKeyIterator();
+		Iterator<Integer> ValIt = achievements.getValueIterator();
+		
+		MinHeap<ComparablePair<Integer,Integer>> minHeap = new ArrayMinHeap<ComparablePair<Integer,Integer>>(11);
+		while(KeyIt.hasNext())
+		{
+			ComparablePair<Integer,Integer> pair = new ComparablePair<Integer,Integer>(KeyIt.next(),ValIt.next());
+			minHeap.add(pair);
+		}
+		
+		int substitutions = 0;
+		Player[] oldLineupArr = oldLineup.toArray();
+		Player[] substitutePlayersArr = substitutePlayers.toArray();
+		Set<Player> newLineup = new ArraySet<Player>((ArraySet<Player>) oldLineup);
+		
+		while(substitutions < 3 && !minHeap.isEmpty()) {
+			
+			ComparablePair<Integer,Integer> worstPlayerPair = minHeap.removeMin();
+			Player worstPlayer = null;
+			for(Player player:oldLineupArr)
+			{
+				if(player.hashCode() == worstPlayerPair.getKey())
+				{
+					worstPlayer = player;
+					break;
+				}
+			}
+			
+			for(Player player:substitutePlayersArr)
+			{
+				if(player.getPosition() == worstPlayer.getPosition())
+				{
+					newLineup.remove(worstPlayer);
+					newLineup.add(player);
+					substitutePlayers.remove(player);
+					substitutions++;
+					break;
+				}
+				
+			}
+		}
+	
+	return newLineup;
 	}
 
-	
 }
