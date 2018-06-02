@@ -59,6 +59,7 @@ public class FootballManagerApp {
 		FootballClub homeClub = new FootballClub(manager1,"fenerbahçe",homeSquad);
 		FootballClub awayClub = new FootballClub(manager2,"galatasaray",awaySquad);
 		
+		
 		FootballMatch match = new FootballMatch(homeClub, awayClub);
 		MatchResult result = match.simulateMatch();
 		System.out.println(result.getScoreOfHomeTeam());

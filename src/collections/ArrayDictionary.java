@@ -56,9 +56,10 @@ public class ArrayDictionary<K, V> implements Dictionary<K, V>
 			else
 			{
 				dictionary[size] = new Entry<K,V>(key, value);
-				size++;
-				ensureCapacity();
+				
 			}
+			size++;
+			ensureCapacity();
 		}
 		return result;
 	}
