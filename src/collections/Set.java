@@ -7,6 +7,8 @@ public interface Set<T> {
 	
 	public void remove(T element);
 	
+	public void remove();
+	
 	public boolean contains(T element);
 	
 	public int size();

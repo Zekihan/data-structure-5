@@ -4,13 +4,13 @@ import java.util.Arrays;
 
 public class ArraySet<T> implements Set<T>{
 	
-	private T set[];
+	private T[] set;
 	private int size = 0;
 	
 	
 	@SuppressWarnings("unchecked")
 	public ArraySet() {
-		this.set = (T[]) new Object[1];;
+		this.set = (T[]) new Object[1];
 		this.size = 0;
 	}
 	
@@ -36,8 +36,13 @@ public class ArraySet<T> implements Set<T>{
 			for (int i = index; i < size; i++) {                
 			    set[i] = set[i+1];
 			}
-			size++;
+			size--;
 		}
+	}
+	
+	public void remove() {
+		set[size-1] = null;
+		size--;
 	}
 
 	public boolean contains(T element) {

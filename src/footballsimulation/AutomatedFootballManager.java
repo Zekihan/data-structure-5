@@ -1,7 +1,5 @@
 package footballsimulation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import collections.ArraySet;
 import collections.Set;
@@ -11,11 +9,11 @@ public class AutomatedFootballManager implements FootballManager {
 
 	public Set<Player> decideStartingLineUp(FootballClub ownClub, FootballClub opponent) {
 		
-		Player[] squadArray = ownClub.getSquad().toArray();
-		ArrayList<Player> startingSquad = new ArrayList<Player>();
+		Player[] squadArr = ownClub.getSquad().toArray();
+		Set<Player> startingSquad = new ArraySet<Player>();
 		
 		int GkCount = 0; int DlCount = 0; int DcCount = 0; int DrCount = 0; int MlCount = 0; int McCount = 0; int MrCount = 0; int FcCount = 0;
-		for(Player player : squadArray)
+		for(Player player : squadArr)
 		{
 			if(GkCount != 1)
 			{
@@ -94,18 +92,40 @@ public class AutomatedFootballManager implements FootballManager {
 		// This method should select an appropriate line up for the match.
 		// This is a simple automated football manager and thus it ignores the opponent.
 		// The rules are explained in FootballManager.java
-		return null; // Remove this line.
+		return startingSquad; // Remove this line.
 	}
 
 	public Set<Player> decideSubstitutePlayers(FootballClub ownClub, FootballClub opponent, Set<Player> startinglineUp) {
+		
+		Player[] startingArr = startinglineUp.toArray();
+		Set<Player> substitutes = new ArraySet<Player>((ArraySet<Player>) ownClub.getSquad());
+		
+		for (Player player:startingArr)
+		{
+			substitutes.remove(player);
+		}
+		while (substitutes.size() != 7)
+		{
+			substitutes.remove();
+		}
+		
+		
 		// TODO: Fix this method.
 		// This method should return a set of appropriate substitute players.
 		// This is a simple automated football manager and thus it ignores the opponent.
 		// The rules are explained in FootballManager.java
-		return null; // Remove this line.
+		return substitutes; // Remove this line.
 	}
 
 	public Set<Player> makeSubstitutions(FootballClub ownClub, FootballMatch footballMatch) {
+		
+		if (ownClub.equals(footballMatch.getHomeClub()))
+		{
+			
+		}
+		
+		
+		
 		// TODO: Fix this method.
 		// This method should return a new line up for the second half of the match.
 		// The rules are explained in FootballManager.java
