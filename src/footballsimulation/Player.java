@@ -16,14 +16,9 @@ public class Player {
 	public String getName() {
 		return name;
 	}
-	public int getShirtName() {
-		return shirtNumber;
-	}
 	public Position getPosition() {
 		return position;
 	}
-		
-	
 	@Override
 	public int hashCode() {
 		return shirtNumber;

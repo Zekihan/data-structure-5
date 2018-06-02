@@ -67,7 +67,7 @@ public class FootballMatch {
 		Player[] team = homeClub.getSquad().toArray();
 		Dictionary<Integer, Integer> tempHome = new ArrayDictionary<Integer, Integer>();
 		for (int i = 0; i < team.length; i++) {
-			tempHome.add(team[i].getShirtName(),0);
+			tempHome.add(team[i].hashCode(),0);
 		}
 		this.homeAchievements = tempHome;
 		this.awayClub = awayClub;
@@ -75,7 +75,7 @@ public class FootballMatch {
 		this.awayScore = 0;
 		Dictionary<Integer, Integer> tempAway = new ArrayDictionary<Integer, Integer>();
 		for (int i = 0; i < team.length; i++) {
-			tempAway.add(team[i].getShirtName(),0);
+			tempAway.add(team[i].hashCode(),0);
 		}
 		this.awayAchievements = tempAway;
 	}
@@ -208,31 +208,31 @@ public class FootballMatch {
 			if (Math.random() < 0.06) {
 				if (randomGoal(player)) {
 					homeScore++;
-					Integer tempvalue = homeAchievements.remove(player.getShirtName()) ;
+					Integer tempvalue = homeAchievements.remove(player.hashCode()) ;
 					tempvalue += 20;
-					homeAchievements.add(player.getShirtName(), tempvalue);	
+					homeAchievements.add(player.hashCode(), tempvalue);	
 				}
 				
 			}
 			if (Math.random() < 0.06) {
 				if (randomAssist(player)) {
-					Integer tempvalue = homeAchievements.remove(player.getShirtName()) ;
+					Integer tempvalue = homeAchievements.remove(player.hashCode()) ;
 					tempvalue += 10;
-					homeAchievements.add(player.getShirtName(), tempvalue);	
+					homeAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
 			if (Math.random() < 0.15) {
 				if (randomTackle(player)) {
-					Integer tempvalue = homeAchievements.remove(player.getShirtName()) ;
+					Integer tempvalue = homeAchievements.remove(player.hashCode()) ;
 					tempvalue += 2;
-					homeAchievements.add(player.getShirtName(), tempvalue);	
+					homeAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
 			if (Math.random() < 0.5) {
 				if (randomPass(player)) {
-					Integer tempvalue = homeAchievements.remove(player.getShirtName()) ;
+					Integer tempvalue = homeAchievements.remove(player.hashCode()) ;
 					tempvalue += 1;
-					homeAchievements.add(player.getShirtName(), tempvalue);	
+					homeAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
 		}
@@ -242,31 +242,31 @@ public class FootballMatch {
 			if (Math.random() < 0.06) {
 				if (randomGoal(player)) {
 					awayScore++;
-					Integer tempvalue = awayAchievements.remove(player.getShirtName()) ;
+					Integer tempvalue = awayAchievements.remove(player.hashCode()) ;
 					tempvalue += 20;
-					awayAchievements.add(player.getShirtName(), tempvalue);	
+					awayAchievements.add(player.hashCode(), tempvalue);	
 				}
 				
 			}
 			if (Math.random() < 0.06) {
 				if (randomAssist(player)) {
-					Integer tempvalue = awayAchievements.remove(player.getShirtName()) ;
+					Integer tempvalue = awayAchievements.remove(player.hashCode()) ;
 					tempvalue += 10;
-					awayAchievements.add(player.getShirtName(), tempvalue);	
+					awayAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
 			if (Math.random() < 0.15) {
 				if (randomTackle(player)) {
-					Integer tempvalue = awayAchievements.remove(player.getShirtName()) ;
+					Integer tempvalue = awayAchievements.remove(player.hashCode()) ;
 					tempvalue += 2;
-					awayAchievements.add(player.getShirtName(), tempvalue);	
+					awayAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
 			if (Math.random() < 0.5) {
 				if (randomPass(player)) {
-					Integer tempvalue = awayAchievements.remove(player.getShirtName()) ;
+					Integer tempvalue = awayAchievements.remove(player.hashCode()) ;
 					tempvalue += 1;
-					awayAchievements.add(player.getShirtName(), tempvalue);	
+					awayAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
 		}
