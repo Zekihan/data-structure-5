@@ -84,7 +84,7 @@ public class AutomatedFootballManager implements FootballManager {
 					continue;
 				}
 			}
-			if(FcCount != 1)
+			if(FcCount != 2)
 			{
 				if (player.getPosition() == Position.FC)
 				{
