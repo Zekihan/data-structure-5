@@ -61,11 +61,6 @@ public class FootballMatch {
 	
 	public FootballMatch(FootballClub homeClub, FootballClub awayClub) {
 
-		// TODO: Initialize all the attributes other than 
-		// homeStartingLineUp, awayStartingLineUp, homeSubstitutePlayers and awaySubstitutePlayers.
-		// Key-value pairs of the dictionaries should consist of 
-		// shirt numbers and the corresponding personal scores.
-		// All players should start with 0 points as achievements.
 		this.homeClub = homeClub;
 		this.homeManager = homeClub.getManager();
 		this.homeScore = 0;
@@ -92,8 +87,7 @@ public class FootballMatch {
 		
 		awayStartingLineUp = awayManager.decideStartingLineUp(awayClub, homeClub);
 		awaySubstitutePlayers = awayManager.decideSubstitutePlayers(awayClub, homeClub, awayStartingLineUp);
-		// TODO: Assign values to awayStartingLineUp, homeSubstitutePlayers and awaySubstitutePlayers similarly.
-		// Write those 3 lines of code very carefully!!
+		
 		boolean violates = false;
 		MatchResult result;
 		if (checkStartingTeam(homeStartingLineUp)||checkSubstituteTeam(homeSubstitutePlayers)) {
@@ -109,43 +103,22 @@ public class FootballMatch {
 			awayScore = 0;
 		}
 		result = new MatchResult(homeScore, awayScore, null);
-		// TODO: Check for those 4 attributes. 
-		// If a manager violates a rule, the other club will be the 
-		// "winner by default" with a score of 3 against 0.
-		// If both managers violates a rule, it is a draw (The score is 0-0).
+
 		if (!violates) {
 			for(int minute = 0; minute < 45; minute++) {
-				
-				// TODO: Simulate random scores, assists, etc. for the first half of the match.
-				// Achievements: 
-				// + Scoring a goal: 20 points
-				// + Assist: 10 points
-				// + Tackling opponent: 3 points
-				// + placed pass: 1 point
-				// A random event can be simulated with the following snippet of code:
-				// if(Math.random() < 0.3) {
-				//    ... // This line of code will run with probability 0.3
-				// }
+
 				randomEvent(homeStartingLineUp, awayStartingLineUp);
 				
 			}
-			
-			// Half time simulation
+
 			Set<Player> secondHalfLineUpHome = homeManager.makeSubstitutions(homeClub, this);
 			Set<Player> secondHalfLineUpAway = awayManager.makeSubstitutions(awayClub, this);
-			// TODO: Check for the rule violations. In case of any violation, apply the same penalties as above.
-			
-			// Second half
+
 			for(int minutes = 45; minutes < 90; minutes++) {
-				// TODO: Simulate the second half.
-				// For the new players, you may want to add extra success (because they will have more energy).
-				// It is smart to implement a private method and call it both in the first half and in the second half.
+
 				randomEvent(secondHalfLineUpHome, secondHalfLineUpAway);
 			}
 			
-			// We are keeping it simple: no extra time, no substitutions during the match, no injuries, etc. 
-			
-			// TODO: Create and return the appropriate MatchResult object.
 			Integer[] home = findMax(homeAchievements);
 			Integer[] away = findMax(awayAchievements);
 			
@@ -162,7 +135,7 @@ public class FootballMatch {
 			
 			result = new MatchResult(homeScore, awayScore, playerOfTheMatch);
 		}
-		return result; // Remove this line.
+		return result;
 	}
 	private boolean checkStartingTeam(Set<Player> startingTeam) {
 		boolean rule = false;
@@ -241,7 +214,6 @@ public class FootballMatch {
 				}
 				
 			}
-			//assist
 			if (Math.random() < 0.06) {
 				if (randomAssist(player)) {
 					Integer tempvalue = homeAchievements.remove(player.getShirtName()) ;
@@ -249,7 +221,6 @@ public class FootballMatch {
 					homeAchievements.add(player.getShirtName(), tempvalue);	
 				}
 			}
-			//tackle
 			if (Math.random() < 0.15) {
 				if (randomTackle(player)) {
 					Integer tempvalue = homeAchievements.remove(player.getShirtName()) ;
@@ -257,7 +228,6 @@ public class FootballMatch {
 					homeAchievements.add(player.getShirtName(), tempvalue);	
 				}
 			}
-			//pass
 			if (Math.random() < 0.5) {
 				if (randomPass(player)) {
 					Integer tempvalue = homeAchievements.remove(player.getShirtName()) ;
@@ -266,7 +236,6 @@ public class FootballMatch {
 				}
 			}
 		}
-		//away
 		if (rand > 0.5) {
 			
 			Player player = randomPlayer(awayTeam);
@@ -279,7 +248,6 @@ public class FootballMatch {
 				}
 				
 			}
-			//assist
 			if (Math.random() < 0.06) {
 				if (randomAssist(player)) {
 					Integer tempvalue = awayAchievements.remove(player.getShirtName()) ;
@@ -287,7 +255,6 @@ public class FootballMatch {
 					awayAchievements.add(player.getShirtName(), tempvalue);	
 				}
 			}
-			//tackle
 			if (Math.random() < 0.15) {
 				if (randomTackle(player)) {
 					Integer tempvalue = awayAchievements.remove(player.getShirtName()) ;
@@ -295,7 +262,6 @@ public class FootballMatch {
 					awayAchievements.add(player.getShirtName(), tempvalue);	
 				}
 			}
-			//pass
 			if (Math.random() < 0.5) {
 				if (randomPass(player)) {
 					Integer tempvalue = awayAchievements.remove(player.getShirtName()) ;
@@ -502,9 +468,5 @@ public class FootballMatch {
 		}
 		return pass;
 	}
-	
-				
-			
-	// Note: It is strongly recommended to define private helper methods.
 
 }

@@ -149,6 +149,7 @@ public class ArrayDictionary<K, V> implements Dictionary<K, V>
 		}
 	}
 	
+	@SuppressWarnings("hiding")
 	private class Entry<K,V>
 	{
 		private K key;

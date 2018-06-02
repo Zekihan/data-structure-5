@@ -23,8 +23,6 @@ public class Player {
 		return position;
 	}
 		
-
-	// TODO: Define getter methods only.
 	
 	@Override
 	public int hashCode() {
@@ -33,10 +31,7 @@ public class Player {
 
 	@Override
 	public boolean equals(Object obj) {
-		// Note: This method determines whether 
-		// two player instances are the same individual.
-		// It is very important for sets.
-		// Because sets do not contain duplicate elements.
+
 		if (this == obj)
 			return true;
 		if (obj == null)
