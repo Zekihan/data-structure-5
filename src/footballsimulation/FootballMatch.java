@@ -64,47 +64,19 @@ public class FootballMatch {
 		this.homeClub = homeClub;
 		this.homeManager = homeClub.getManager();
 		this.homeScore = 0;
-<<<<<<< HEAD
-<<<<<<< HEAD
 		Player[] homeTeam = homeClub.getSquad().toArray();
 		Dictionary<Integer, Integer> tempHome = new ArrayDictionary<Integer, Integer>();
 		for (int i = 0; i < homeTeam.length; i++) {
 			tempHome.add(homeTeam[i].hashCode(),0);
-=======
-		Player[] teamHome = homeClub.getSquad().toArray();
-		Dictionary<Integer, Integer> tempHome = new ArrayDictionary<Integer, Integer>();
-		for (int i = 0; i < teamHome.length; i++) {
-			tempHome.add(teamHome[i].hashCode(),0);
->>>>>>> fb99327dc2183f78c89e2907af35af4aa70d0202
-=======
-		Player[] teamHome = homeClub.getSquad().toArray();
-		Dictionary<Integer, Integer> tempHome = new ArrayDictionary<Integer, Integer>();
-		for (int i = 0; i < teamHome.length; i++) {
-			tempHome.add(teamHome[i].hashCode(),0);
->>>>>>> fb99327dc2183f78c89e2907af35af4aa70d0202
 		}
 		this.homeAchievements = tempHome;
 		this.awayClub = awayClub;
 		this.awayManager = awayClub.getManager();
 		this.awayScore = 0;
-<<<<<<< HEAD
-<<<<<<< HEAD
 		Player[] awayTeam = awayClub.getSquad().toArray();
 		Dictionary<Integer, Integer> tempAway = new ArrayDictionary<Integer, Integer>();
 		for (int i = 0; i < awayTeam.length; i++) {
 			tempAway.add(awayTeam[i].hashCode(),0);
-=======
-		Player[] teamAway = awayClub.getSquad().toArray();
-		Dictionary<Integer, Integer> tempAway = new ArrayDictionary<Integer, Integer>();
-		for (int i = 0; i < teamAway.length; i++) {
-			tempAway.add(teamAway[i].hashCode(),0);
->>>>>>> fb99327dc2183f78c89e2907af35af4aa70d0202
-=======
-		Player[] teamAway = awayClub.getSquad().toArray();
-		Dictionary<Integer, Integer> tempAway = new ArrayDictionary<Integer, Integer>();
-		for (int i = 0; i < teamAway.length; i++) {
-			tempAway.add(teamAway[i].hashCode(),0);
->>>>>>> fb99327dc2183f78c89e2907af35af4aa70d0202
 		}
 		System.out.println(tempAway.getSize());
 		this.awayAchievements = tempAway;
@@ -170,7 +142,7 @@ public class FootballMatch {
 	private boolean checkStartingTeam(Set<Player> startingTeam) {
 		boolean rule = false;
 		Player[] team = startingTeam.toArray();
-		if (team.length != 11) {
+		if (team.length != 12) {
 			rule = true;
 		}
 		int gk = 0, dl = 0, dc = 0, dr = 0, ml = 0, mc = 0, mr = 0, fc = 0;
@@ -217,7 +189,7 @@ public class FootballMatch {
 	private boolean checkSubstituteTeam(Set<Player> startingTeam) {
 		boolean rule = false;
 		Player[] team = startingTeam.toArray();
-		if (team.length != 7) {
+		if (team.length != 12) {
 			rule = true;
 		}
 		return rule;
@@ -242,84 +214,76 @@ public class FootballMatch {
 		double rand = Math.random();
 		if (rand <= 0.5) {
 			
-			Player homePlayer = randomPlayer(homeTeam);
+			Player player = randomPlayer(homeTeam);
 			if (Math.random() < 0.06) {
-				if (randomGoal(homePlayer)) {
+				if (randomGoal(player)) {
 					homeScore++;
-					Integer tempvalue = homeAchievements.getValue(homePlayer.hashCode()) ;
+					Integer tempvalue = homeAchievements.remove(player.hashCode()) ;
 					tempvalue += 20;
-					homeAchievements.add(homePlayer.hashCode(), tempvalue);	
+					homeAchievements.add(player.hashCode(), tempvalue);	
 				}
 				
 			}
 			if (Math.random() < 0.06) {
-				if (randomAssist(homePlayer)) {
-					Integer tempvalue = homeAchievements.getValue(homePlayer.hashCode()) ;
+				if (randomAssist(player)) {
+					Integer tempvalue = homeAchievements.remove(player.hashCode()) ;
 					tempvalue += 10;
-					homeAchievements.add(homePlayer.hashCode(), tempvalue);	
+					homeAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
 			if (Math.random() < 0.15) {
-				if (randomTackle(homePlayer)) {
-					Integer tempvalue = homeAchievements.getValue(homePlayer.hashCode()) ;
+				if (randomTackle(player)) {
+					Integer tempvalue = homeAchievements.remove(player.hashCode()) ;
 					tempvalue += 2;
-					homeAchievements.add(homePlayer.hashCode(), tempvalue);	
+					homeAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
 			if (Math.random() < 0.5) {
-				if (randomPass(homePlayer)) {
-					Integer tempvalue = homeAchievements.getValue(homePlayer.hashCode()) ;
+				if (randomPass(player)) {
+					Integer tempvalue = homeAchievements.remove(player.hashCode()) ;
 					tempvalue += 1;
-					homeAchievements.add(homePlayer.hashCode(), tempvalue);	
+					homeAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
 		}
 		if (rand > 0.5) {
 			
-			Player awayPlayer = randomPlayer(awayTeam);
+			Player player = randomPlayer(awayTeam);
 			if (Math.random() < 0.06) {
-				if (randomGoal(awayPlayer)) {
+				if (randomGoal(player)) {
 					awayScore++;
-					Integer tempvalue = awayAchievements.getValue(awayPlayer.hashCode()) ;
+					Integer tempvalue = awayAchievements.remove(player.hashCode()) ;
 					tempvalue += 20;
-					awayAchievements.add(awayPlayer.hashCode(), tempvalue);	
+					awayAchievements.add(player.hashCode(), tempvalue);	
 				}
 				
 			}
 			if (Math.random() < 0.06) {
-				if (randomAssist(awayPlayer)) {
-					Integer tempvalue = awayAchievements.getValue(awayPlayer.hashCode()) ;
+				if (randomAssist(player)) {
+					Integer tempvalue = awayAchievements.remove(player.hashCode()) ;
 					tempvalue += 10;
-					awayAchievements.add(awayPlayer.hashCode(), tempvalue);	
+					awayAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
 			if (Math.random() < 0.15) {
-				if (randomTackle(awayPlayer)) {
-					Integer tempvalue = awayAchievements.getValue(awayPlayer.hashCode()) ;
+				if (randomTackle(player)) {
+					Integer tempvalue = awayAchievements.remove(player.hashCode()) ;
 					tempvalue += 2;
-					awayAchievements.add(awayPlayer.hashCode(), tempvalue);	
+					awayAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
 			if (Math.random() < 0.5) {
-				if (randomPass(awayPlayer)) {
-					Integer tempvalue = awayAchievements.getValue(awayPlayer.hashCode()) ;
+				if (randomPass(player)) {
+					Integer tempvalue = awayAchievements.remove(player.hashCode()) ;
 					tempvalue += 1;
-					awayAchievements.add(awayPlayer.hashCode(), tempvalue);	
+					awayAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
 		}
 		
 	}
 	private Player randomPlayer(Set<Player> team) {
-<<<<<<< HEAD
-<<<<<<< HEAD
 			int rand = (int) (Math.random()*11);
-=======
-			int rand = (int) ((Math.random()*11));
->>>>>>> fb99327dc2183f78c89e2907af35af4aa70d0202
-=======
-			int rand = (int) ((Math.random()*11));
->>>>>>> fb99327dc2183f78c89e2907af35af4aa70d0202
 			Player[] arrayTeam = team.toArray();
 			Player player = arrayTeam[rand];
 		return player;
