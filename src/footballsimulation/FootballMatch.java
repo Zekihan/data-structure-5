@@ -65,10 +65,17 @@ public class FootballMatch {
 		this.homeManager = homeClub.getManager();
 		this.homeScore = 0;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Player[] homeTeam = homeClub.getSquad().toArray();
 		Dictionary<Integer, Integer> tempHome = new ArrayDictionary<Integer, Integer>();
 		for (int i = 0; i < homeTeam.length; i++) {
 			tempHome.add(homeTeam[i].hashCode(),0);
+=======
+		Player[] teamHome = homeClub.getSquad().toArray();
+		Dictionary<Integer, Integer> tempHome = new ArrayDictionary<Integer, Integer>();
+		for (int i = 0; i < teamHome.length; i++) {
+			tempHome.add(teamHome[i].hashCode(),0);
+>>>>>>> fb99327dc2183f78c89e2907af35af4aa70d0202
 =======
 		Player[] teamHome = homeClub.getSquad().toArray();
 		Dictionary<Integer, Integer> tempHome = new ArrayDictionary<Integer, Integer>();
@@ -81,10 +88,17 @@ public class FootballMatch {
 		this.awayManager = awayClub.getManager();
 		this.awayScore = 0;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Player[] awayTeam = awayClub.getSquad().toArray();
 		Dictionary<Integer, Integer> tempAway = new ArrayDictionary<Integer, Integer>();
 		for (int i = 0; i < awayTeam.length; i++) {
 			tempAway.add(awayTeam[i].hashCode(),0);
+=======
+		Player[] teamAway = awayClub.getSquad().toArray();
+		Dictionary<Integer, Integer> tempAway = new ArrayDictionary<Integer, Integer>();
+		for (int i = 0; i < teamAway.length; i++) {
+			tempAway.add(teamAway[i].hashCode(),0);
+>>>>>>> fb99327dc2183f78c89e2907af35af4aa70d0202
 =======
 		Player[] teamAway = awayClub.getSquad().toArray();
 		Dictionary<Integer, Integer> tempAway = new ArrayDictionary<Integer, Integer>();
@@ -298,7 +312,11 @@ public class FootballMatch {
 	}
 	private Player randomPlayer(Set<Player> team) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			int rand = (int) (Math.random()*11);
+=======
+			int rand = (int) ((Math.random()*11));
+>>>>>>> fb99327dc2183f78c89e2907af35af4aa70d0202
 =======
 			int rand = (int) ((Math.random()*11));
 >>>>>>> fb99327dc2183f78c89e2907af35af4aa70d0202
