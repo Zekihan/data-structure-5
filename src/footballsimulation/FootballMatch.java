@@ -229,7 +229,7 @@ public class FootballMatch {
 		if (rand <= 0.5) {
 			
 			Player player = randomPlayer(homeTeam);
-			if (Math.random() < 0.05) {
+			if (Math.random() < 0.04) {
 				if (randomGoal(player)) {
 					homeScore++;
 					Integer tempvalue = homeAchievements.remove(player.hashCode()) ;
@@ -238,7 +238,7 @@ public class FootballMatch {
 				}
 				
 			}
-			if (Math.random() < 0.5) {
+			if (Math.random() < 0.05) {
 				if (randomAssist(player)) {
 					Integer tempvalue = homeAchievements.remove(player.hashCode()) ;
 					tempvalue += 10;
@@ -263,7 +263,7 @@ public class FootballMatch {
 		if (rand > 0.5) {
 			
 			Player player = randomPlayer(awayTeam);
-			if (Math.random() < 0.05) {
+			if (Math.random() < 0.04) {
 				if (randomGoal(player)) {
 					awayScore++;
 					Integer tempvalue = awayAchievements.remove(player.hashCode()) ;
@@ -272,7 +272,7 @@ public class FootballMatch {
 				}
 				
 			}
-			if (Math.random() < 0.5) {
+			if (Math.random() < 0.05) {
 				if (randomAssist(player)) {
 					Integer tempvalue = awayAchievements.remove(player.hashCode()) ;
 					tempvalue += 10;
@@ -318,37 +318,37 @@ public class FootballMatch {
 		boolean goal = false;
 		int rand = (int) Math.random();
 		if (player.getPosition() == Position.GK) {
-			if (rand <= 0.5) {
+			if (rand <= 0.005) {
 				goal = true;
 			}
 		}
 		if (player.getPosition() == Position.DL) {
-			if (rand <= 0.5) {
+			if (rand <= 0.05) {
 				goal = true;
 			}
 		}
 		if (player.getPosition() == Position.DC) {
-			if (rand <= 0.5) {
+			if (rand <= 0.05) {
 				goal = true;
 			}
 		}
 		if (player.getPosition() == Position.DR) {
-			if (rand <= 0.5) {
+			if (rand <= 0.05) {
 				goal = true;
 			}
 		}
 		if (player.getPosition() == Position.MC) {
-			if (rand <= 0.5) {
+			if (rand <= 0.25) {
 				goal = true;
 			}
 		}
 		if (player.getPosition() == Position.ML) {
-			if (rand <= 0.5) {
+			if (rand <= 0.25) {
 				goal = true;
 			}
 		}
 		if (player.getPosition() == Position.MR) {
-			if (rand <= 0.5) {
+			if (rand <= 0.25) {
 				goal = true;
 			}
 		}
@@ -363,37 +363,37 @@ public class FootballMatch {
 		boolean assist = false;
 		int rand = (int) Math.random();
 		if (player.getPosition() == Position.GK) {
-			if (rand <= 0.5) {
+			if (rand <= 0.005) {
 				assist = true;
 			}
 		}
 		if (player.getPosition() == Position.DL) {
-			if (rand <= 0.5) {
+			if (rand <= 0.05) {
 				assist = true;
 			}
 		}
 		if (player.getPosition() == Position.DC) {
-			if (rand <= 0.5) {
+			if (rand <= 0.05) {
 				assist = true;
 			}
 		}
 		if (player.getPosition() == Position.DR) {
-			if (rand <= 0.5) {
+			if (rand <= 0.05) {
 				assist = true;
 			}
 		}
 		if (player.getPosition() == Position.MC) {
-			if (rand <= 0.5) {
+			if (rand <= 0.3) {
 				assist = true;
 			}
 		}
 		if (player.getPosition() == Position.ML) {
-			if (rand <= 0.5) {
+			if (rand <= 0.3) {
 				assist = true;
 			}
 		}
 		if (player.getPosition() == Position.MR) {
-			if (rand <= 0.5) {
+			if (rand <= 0.3) {
 				assist = true;
 			}
 		}
@@ -408,7 +408,7 @@ public class FootballMatch {
 		boolean tackle = false;
 		int rand = (int) Math.random();
 		if (player.getPosition() == Position.GK) {
-			if (rand <= 0.5) {
+			if (rand <= 0.05) {
 				tackle = true;
 			}
 		}
@@ -453,7 +453,7 @@ public class FootballMatch {
 		boolean pass = false;
 		int rand = (int) Math.random();
 		if (player.getPosition() == Position.GK) {
-			if (rand <= 0.5) {
+			if (rand <= 0.05) {
 				pass = true;
 			}
 		}
