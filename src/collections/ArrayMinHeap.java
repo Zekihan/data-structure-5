@@ -32,7 +32,6 @@ public class ArrayMinHeap<T extends Comparable<? super T>> implements MinHeap<T>
 		  
 		
 		int newIndex = lastIndex + 1;
-		System.out.println(heap.length);
 		heap[newIndex] = newEntry;
 		int parentIndex = newIndex / 2;
 		while(parentIndex > 0 && heap[parentIndex].compareTo(newEntry) > 0)

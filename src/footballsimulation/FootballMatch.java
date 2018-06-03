@@ -1,5 +1,7 @@
 package footballsimulation;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import collections.ArrayDictionary;
@@ -90,15 +92,15 @@ public class FootballMatch {
 		awayStartingLineUp = awayManager.decideStartingLineUp(awayClub, homeClub);
 		awaySubstitutePlayers = awayManager.decideSubstitutePlayers(awayClub, homeClub, awayStartingLineUp);
 		
-		boolean violates = false;
 		MatchResult result;
+		boolean violate = false;
 		if (checkStartingTeam(homeStartingLineUp)||checkSubstituteTeam(homeSubstitutePlayers)) {
 			awayScore = 3;
-			violates = true;
+			violate = true;
 		}
 		if (checkStartingTeam(awayStartingLineUp)||checkSubstituteTeam(awaySubstitutePlayers)) {
 			homeScore = 3;
-			violates = true;
+			violate = true;
 		}
 		if ((homeScore == 3)&&(awayScore == 3)) {
 			homeScore = 0;
@@ -106,7 +108,7 @@ public class FootballMatch {
 		}
 		result = new MatchResult(homeScore, awayScore, null);
 
-		if (true) {
+		if (!violate) {
 			for(int minute = 0; minute < 45; minute++) {
 
 				randomEvent(homeStartingLineUp, awayStartingLineUp);
@@ -121,28 +123,38 @@ public class FootballMatch {
 				randomEvent(secondHalfLineUpHome, secondHalfLineUpAway);
 			}
 			
+			
 			Integer[] home = findMax(homeAchievements);
 			Integer[] away = findMax(awayAchievements);
-			
+			Player[] homeArray = combine(homeStartingLineUp.toArray(),secondHalfLineUpHome.toArray());
+			Player[] awayArray = combine(awayStartingLineUp.toArray(),secondHalfLineUpAway.toArray());
 			Player playerOfTheMatch ;
-			
-			Integer maxKey = home[0];
 			if (home[1] < away[1]) {
-				maxKey = away[1];
-				playerOfTheMatch = getPlayer(homeClub.getSquad(), maxKey);
+				playerOfTheMatch = getPlayer(awayArray, away[0]);
 			}
 			else {
-				playerOfTheMatch = getPlayer(awayClub.getSquad(), maxKey);
+				playerOfTheMatch = getPlayer(homeArray, home[0]);
 			}
 			
 			result = new MatchResult(homeScore, awayScore, playerOfTheMatch);
 		}
 		return result;
 	}
+	private <T> T[] combine(T[] a, T[] b) {
+	    int aLen = a.length;
+	    int bLen = b.length;
+
+	    @SuppressWarnings("unchecked")
+	    T[] c = (T[]) Array.newInstance(a.getClass().getComponentType(), aLen + bLen);
+	    System.arraycopy(a, 0, c, 0, aLen);
+	    System.arraycopy(b, 0, c, aLen, bLen);
+
+	    return c;
+	}
 	private boolean checkStartingTeam(Set<Player> startingTeam) {
 		boolean rule = false;
 		Player[] team = startingTeam.toArray();
-		if (team.length != 12) {
+		if (team.length != 11) {
 			rule = true;
 		}
 		int gk = 0, dl = 0, dc = 0, dr = 0, ml = 0, mc = 0, mr = 0, fc = 0;
@@ -189,21 +201,25 @@ public class FootballMatch {
 	private boolean checkSubstituteTeam(Set<Player> startingTeam) {
 		boolean rule = false;
 		Player[] team = startingTeam.toArray();
-		if (team.length != 12) {
+		if (team.length != 7) {
 			rule = true;
 		}
 		return rule;
 	}
 	private Integer[] findMax(Dictionary<Integer, Integer> achievement) {
-		Iterator<Integer> achievementValue = achievement.getValueIterator();
+		
+		Iterator<Integer> achievementValue = achievement.getValueIterator(),achievementKey = achievement.getKeyIterator();
 		Integer achievementMaxValue = 0, achievementKeyMax = 0, tempAchievementKey = 0, tempAchievementValue = 0;
 		while (achievementValue.hasNext()) {
-			tempAchievementValue = achievement.getValueIterator().next();
-			tempAchievementKey = achievement.getKeyIterator().next();
-			if (tempAchievementValue > achievementMaxValue) {
-				achievementMaxValue = tempAchievementValue;
-				achievementKeyMax = tempAchievementKey;
+			tempAchievementValue = achievementValue.next();
+			tempAchievementKey = achievementKey.next();
+			if (tempAchievementValue != null) {
+				if (tempAchievementValue > achievementMaxValue) {
+					achievementMaxValue = tempAchievementValue;
+					achievementKeyMax = tempAchievementKey;
+				}
 			}
+			
 		}
 		Integer result[] = new Integer[2];
 		result[0] = achievementKeyMax;
@@ -215,7 +231,7 @@ public class FootballMatch {
 		if (rand <= 0.5) {
 			
 			Player player = randomPlayer(homeTeam);
-			if (Math.random() < 0.06) {
+			if (Math.random() < 0.05) {
 				if (randomGoal(player)) {
 					homeScore++;
 					Integer tempvalue = homeAchievements.remove(player.hashCode()) ;
@@ -224,14 +240,14 @@ public class FootballMatch {
 				}
 				
 			}
-			if (Math.random() < 0.06) {
+			if (Math.random() < 0.5) {
 				if (randomAssist(player)) {
 					Integer tempvalue = homeAchievements.remove(player.hashCode()) ;
 					tempvalue += 10;
 					homeAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
-			if (Math.random() < 0.15) {
+			if (Math.random() < 0.5) {
 				if (randomTackle(player)) {
 					Integer tempvalue = homeAchievements.remove(player.hashCode()) ;
 					tempvalue += 2;
@@ -249,7 +265,7 @@ public class FootballMatch {
 		if (rand > 0.5) {
 			
 			Player player = randomPlayer(awayTeam);
-			if (Math.random() < 0.06) {
+			if (Math.random() < 0.05) {
 				if (randomGoal(player)) {
 					awayScore++;
 					Integer tempvalue = awayAchievements.remove(player.hashCode()) ;
@@ -258,14 +274,14 @@ public class FootballMatch {
 				}
 				
 			}
-			if (Math.random() < 0.06) {
+			if (Math.random() < 0.5) {
 				if (randomAssist(player)) {
 					Integer tempvalue = awayAchievements.remove(player.hashCode()) ;
 					tempvalue += 10;
 					awayAchievements.add(player.hashCode(), tempvalue);	
 				}
 			}
-			if (Math.random() < 0.15) {
+			if (Math.random() < 0.5) {
 				if (randomTackle(player)) {
 					Integer tempvalue = awayAchievements.remove(player.hashCode()) ;
 					tempvalue += 2;
@@ -288,12 +304,14 @@ public class FootballMatch {
 			Player player = arrayTeam[rand];
 		return player;
 	}
-	private Player getPlayer(Set<Player> team,Integer key) {
-		Player[] arrayTeam = team.toArray();
+	private Player getPlayer(Player[] team,Integer key) {
+		Player[] arrayTeam = team;
 		Player player = null;
 		for (int i = 0; i < arrayTeam.length; i++) {
-			if (arrayTeam[i].hashCode() == key) {
-				player = arrayTeam[i];
+			if (arrayTeam[i] != null) {
+				if (arrayTeam[i].hashCode() == key) {
+					player = arrayTeam[i];
+				}
 			}
 		}
 		return player;
@@ -302,37 +320,37 @@ public class FootballMatch {
 		boolean goal = false;
 		int rand = (int) Math.random();
 		if (player.getPosition() == Position.GK) {
-			if (rand <= 0.0005) {
+			if (rand <= 0.5) {
 				goal = true;
 			}
 		}
 		if (player.getPosition() == Position.DL) {
-			if (rand <= 0.004) {
+			if (rand <= 0.5) {
 				goal = true;
 			}
 		}
 		if (player.getPosition() == Position.DC) {
-			if (rand <= 0.005) {
+			if (rand <= 0.5) {
 				goal = true;
 			}
 		}
 		if (player.getPosition() == Position.DR) {
-			if (rand <= 0.004) {
+			if (rand <= 0.5) {
 				goal = true;
 			}
 		}
 		if (player.getPosition() == Position.MC) {
-			if (rand <= 0.06) {
+			if (rand <= 0.5) {
 				goal = true;
 			}
 		}
 		if (player.getPosition() == Position.ML) {
-			if (rand <= 0.05) {
+			if (rand <= 0.5) {
 				goal = true;
 			}
 		}
 		if (player.getPosition() == Position.MR) {
-			if (rand <= 0.06) {
+			if (rand <= 0.5) {
 				goal = true;
 			}
 		}
@@ -347,22 +365,22 @@ public class FootballMatch {
 		boolean assist = false;
 		int rand = (int) Math.random();
 		if (player.getPosition() == Position.GK) {
-			if (rand <= 0.005) {
+			if (rand <= 0.5) {
 				assist = true;
 			}
 		}
 		if (player.getPosition() == Position.DL) {
-			if (rand <= 0.05) {
+			if (rand <= 0.5) {
 				assist = true;
 			}
 		}
 		if (player.getPosition() == Position.DC) {
-			if (rand <= 0.05) {
+			if (rand <= 0.5) {
 				assist = true;
 			}
 		}
 		if (player.getPosition() == Position.DR) {
-			if (rand <= 0.05) {
+			if (rand <= 0.5) {
 				assist = true;
 			}
 		}
@@ -392,7 +410,7 @@ public class FootballMatch {
 		boolean tackle = false;
 		int rand = (int) Math.random();
 		if (player.getPosition() == Position.GK) {
-			if (rand <= 0.005) {
+			if (rand <= 0.5) {
 				tackle = true;
 			}
 		}
@@ -437,7 +455,7 @@ public class FootballMatch {
 		boolean pass = false;
 		int rand = (int) Math.random();
 		if (player.getPosition() == Position.GK) {
-			if (rand <= 0.005) {
+			if (rand <= 0.5) {
 				pass = true;
 			}
 		}

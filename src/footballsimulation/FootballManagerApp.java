@@ -53,17 +53,17 @@ public class FootballManagerApp {
 		awaySquad.add(new Player("necip",88,Position.DR));
 		awaySquad.add(new Player("onur",99,Position.FC));
 		
-		
 		FootballManager manager1 = new AutomatedFootballManager();
 		FootballManager manager2 = new AutomatedFootballManager();
 		FootballClub homeClub = new FootballClub(manager1,"fenerbahçe",homeSquad);
 		FootballClub awayClub = new FootballClub(manager2,"galatasaray",awaySquad);
-		
+
 		
 		FootballMatch match = new FootballMatch(homeClub, awayClub);
 		MatchResult result = match.simulateMatch();
 		System.out.println(result.getScoreOfHomeTeam());
 		System.out.println(result.getScoreOfAwayTeam());
+		System.out.println(result.getPlayerOfTheMatch().getName());
 
 
 		

@@ -164,7 +164,6 @@ public class AutomatedFootballManager implements FootballManager {
 						newLineup.add(player);
 						substitutePlayersArr[i] = null;
 						substitutions++;
-						System.out.println(newLineup.size());
 						break;
 					
 				}
