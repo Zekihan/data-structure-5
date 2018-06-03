@@ -34,12 +34,10 @@ public class ArraySet<T> implements Set<T>{
 
 	public void remove(T element) {
 		int index = getIndex(element);
-		if (index != -1) {
-			for (int i = index; i < size; i++) {                
-			    set[i] = set[i+1];
-			}
-			size--;
-		}
+		set[index] = set[size-1];
+		set[size-1] = null;
+		size--;
+		
 	}
 	
 	public void remove() {

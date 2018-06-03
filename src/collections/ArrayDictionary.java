@@ -14,7 +14,6 @@ public class ArrayDictionary<K, V> implements Dictionary<K, V>
 	{
 		this(DEFAULT_CAPACITY);
 	}
-	
 
 	public ArrayDictionary(int initialCapacity) 
 	{

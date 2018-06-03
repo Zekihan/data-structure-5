@@ -4,7 +4,7 @@ public class ArrayMinHeap<T extends Comparable<? super T>> implements MinHeap<T>
 {
 	private T[] heap;
 	private int lastIndex;
-	private static final int DEFAULT_CAPACITY = 16;
+	private static final int DEFAULT_CAPACITY = 20;
 	
 	public ArrayMinHeap()
 	{
@@ -28,9 +28,6 @@ public class ArrayMinHeap<T extends Comparable<? super T>> implements MinHeap<T>
 	
 	public void add(T newEntry)
 	{
-		
-		  
-		
 		int newIndex = lastIndex + 1;
 		heap[newIndex] = newEntry;
 		int parentIndex = newIndex / 2;
@@ -43,7 +40,7 @@ public class ArrayMinHeap<T extends Comparable<? super T>> implements MinHeap<T>
 		
 		heap[newIndex] = newEntry;
 		lastIndex++;
-		if (lastIndex*2 >= heap.length) 
+		if (lastIndex+1 >= heap.length) 
 		{
 		    expandArray();
 		}
@@ -128,7 +125,7 @@ public class ArrayMinHeap<T extends Comparable<? super T>> implements MinHeap<T>
 	@SuppressWarnings("unchecked")
 	private void expandArray() 
 	{
-		T[] newArray = (T[]) new Comparable[heap.length * 5];
+		T[] newArray = (T[]) new Comparable[heap.length * 2];
 	    System.arraycopy(heap, 0, newArray, 0, heap.length);
 
 	    heap = newArray;

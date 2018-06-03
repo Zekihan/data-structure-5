@@ -93,7 +93,10 @@ public class AutomatedFootballManager implements FootballManager {
 				}
 			}
 		}
-		return startingSquad;
+		if(GkCount==1 && DlCount==1 && DcCount==2 && DrCount==1 && MrCount==1 && McCount==2 && MlCount==1 && FcCount==2)
+			return startingSquad;
+		else
+			throw new IllegalArgumentException("Squad is not proper to create starting lineup");
 	}
 
 	public Set<Player> decideSubstitutePlayers(FootballClub ownClub, FootballClub opponent, Set<Player> startinglineUp) {
@@ -105,11 +108,14 @@ public class AutomatedFootballManager implements FootballManager {
 		{
 			substitutes.remove(player);
 		}
-		while (substitutes.size() != 7)
+		while (substitutes.size() > 7 )
 		{
 			substitutes.remove();
 		}
-		return substitutes;
+		if (substitutes.size() == 7)
+			return substitutes;
+		else
+			throw new IllegalArgumentException("Cannot choose proper subsitute players from squad");
 	}
 
 	public Set<Player> makeSubstitutions(FootballClub ownClub, FootballMatch footballMatch) {
@@ -129,7 +135,7 @@ public class AutomatedFootballManager implements FootballManager {
 		Iterator<Integer> KeyIt = achievements.getKeyIterator();
 		Iterator<Integer> ValIt = achievements.getValueIterator();
 		
-		MinHeap<ComparablePair<Integer,Integer>> minHeap = new ArrayMinHeap<ComparablePair<Integer,Integer>>(11);
+		MinHeap<ComparablePair<Integer,Integer>> minHeap = new ArrayMinHeap<ComparablePair<Integer,Integer>>();
 		while(KeyIt.hasNext())
 		{
 			ComparablePair<Integer,Integer> pair = new ComparablePair<Integer,Integer>(KeyIt.next(),ValIt.next());
@@ -157,7 +163,8 @@ public class AutomatedFootballManager implements FootballManager {
 			for(int i=0; i<substitutePlayersArr.length;i++)
 			{
 				Player player = substitutePlayersArr[i];
-				if(player != null)
+				if(player != null && worstPlayer != null)
+				{
 					if(player.getPosition() == worstPlayer.getPosition())
 					{
 						newLineup.remove(worstPlayer);
@@ -165,13 +172,15 @@ public class AutomatedFootballManager implements FootballManager {
 						substitutePlayersArr[i] = null;
 						substitutions++;
 						break;
-					
+					}	
 				}
 				
 			}
 		}
-	
-	return newLineup;
+	if (newLineup.size() == 11)
+		return newLineup;
+	else
+		throw new IllegalArgumentException("Something went wrong while making substitutions");
 	}
 
 }
