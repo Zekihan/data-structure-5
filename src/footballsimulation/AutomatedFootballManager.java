@@ -154,15 +154,19 @@ public class AutomatedFootballManager implements FootballManager {
 				}
 			}
 			
-			for(Player player:substitutePlayersArr)
+			for(int i=0; i<substitutePlayersArr.length;i++)
 			{
-				if(player.getPosition() == worstPlayer.getPosition())
-				{
-					newLineup.remove(worstPlayer);
-					newLineup.add(player);
-					substitutePlayers.remove(player);
-					substitutions++;
-					break;
+				Player player = substitutePlayersArr[i];
+				if(player != null)
+					if(player.getPosition() == worstPlayer.getPosition())
+					{
+						newLineup.remove(worstPlayer);
+						newLineup.add(player);
+						substitutePlayersArr[i] = null;
+						substitutions++;
+						System.out.println(newLineup.size());
+						break;
+					
 				}
 				
 			}
