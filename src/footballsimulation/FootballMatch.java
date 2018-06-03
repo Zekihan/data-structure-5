@@ -1,7 +1,6 @@
 package footballsimulation;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import collections.ArrayDictionary;
@@ -80,7 +79,6 @@ public class FootballMatch {
 		for (int i = 0; i < awayTeam.length; i++) {
 			tempAway.add(awayTeam[i].hashCode(),0);
 		}
-		System.out.println(tempAway.getSize());
 		this.awayAchievements = tempAway;
 	}
 
